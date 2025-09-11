@@ -35,8 +35,28 @@ const logout = () => {
             class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"
             active-class="bg-slate-700 text-white"
           >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21a6 6 0 00-9-5.197M15 21a6 6 0 006-6v-1a3 3 0 00-3-3H9a3 3 0 00-3 3v1a6 6 0 006 6z"></path></svg>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21a6 6 0 00-9-5.197M15 21a6 6 0 006 6v-1a3 3 0 00-3-3H9a3 3 0 00-3 3v1a6 6 0 006 6z"></path></svg>
             <span>Users</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link 
+            to="/admin/projects" 
+            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"
+            active-class="bg-slate-700 text-white"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2H7a2 2 0 00-2 2v2m7-7h.01M7 11h.01M17 11h.01"></path></svg>
+            <span>Projects</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link 
+            to="/admin/articles" 
+            class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700 transition"
+            active-class="bg-slate-700 text-white"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-3m-2 4H5m5 0h.01M12 16H9m2 0h.01"></path></svg>
+            <span>Articles</span>
           </router-link>
         </li>
         <li>

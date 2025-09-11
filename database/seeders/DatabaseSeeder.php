@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,17 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // bikin user admin default
-        User::updateOrCreate(
-            ['email' => 'admin@gmail.com'], // cek biar tidak dobel
-            [
-                'name' => 'Super Admin',
-                'username' => 'admin',
-                'password' => Hash::make('admin123'), // password default
-                'role' => 'admin',
-                'created_by' => null,
-                'updated_by' => null,
-            ]
-        );
+        // Hapus semua user lama untuk menghindari duplikasi
+        // User::truncate(); // Hati-hati menggunakan ini di produksi
+
+        // Buat 1 User sebagai Admin
+        User::factory()->create([
+            'name' => 'Admin User',
+            'username' => 'admin',
+            'email' => 'admin@example.com',
+            'role' => 'admin',
+            'password' => bcrypt('password'), // Ganti dengan password yang aman
+        ]);
+
+        // Buat 10 User biasa
+        User::factory(10)->create();
     }
 }

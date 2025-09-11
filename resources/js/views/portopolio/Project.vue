@@ -1,91 +1,66 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { onMounted, computed } from 'vue';
+import useProjects from '@/composables/useProjects';
 
-// data dummy project
-const projects = [
-  {
-    id: 1,
-    title: "Mobile Banking App",
-    subtitle: "Aplikasi finansial untuk transaksi perbankan",
-    preview: "https://via.placeholder.com/400x250.png?text=Banking+App",
-    tech: ["Kotlin", "Jetpack Compose", "Ktor"],
-  },
-  {
-    id: 2,
-    title: "E-Commerce Website",
-    subtitle: "Platform belanja online dengan sistem pembayaran QRIS",
-    preview: "https://via.placeholder.com/400x250.png?text=E-Commerce",
-    tech: ["Vue.js", "TailwindCSS", "Laravel"],
-  },
-  {
-    id: 3,
-    title: "Internal TMS",
-    subtitle: "Sistem manajemen terminal untuk perangkat kantor",
-    preview: "https://via.placeholder.com/400x250.png?text=TMS",
-    tech: ["Kotlin", "Compose Multiplatform", "Koin"],
-  },
-]
+const { projects, loading, error, getProjects } = useProjects();
+
+// Fungsi untuk mengubah string comma-separated menjadi array
+const formatTechnologies = (techString) => {
+  if (!techString) return [];
+  return techString.split(',').map(tech => tech.trim());
+};
+
+onMounted(() => {
+  getProjects();
+});
 </script>
 
 <template>
-  <section class="bg-slate-800 py-12">
-    <!-- Section Title -->
-    <div class="text-center mb-12">
-      <h2 class="text-yellow-400 font-bold text-lg uppercase tracking-widest relative inline-block">
-        Projects
-        <div class="flex justify-center items-center mt-2">
-          <span class="w-10 h-0.5 bg-white"></span>
-          <span class="w-4 h-0.5 bg-yellow-400 mx-1"></span>
-          <span class="w-10 h-0.5 bg-white"></span>
-        </div>
-      </h2>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8 text-white">My Projects</h1>
+
+    <!-- Tampilkan pesan loading -->
+    <div v-if="loading" class="text-center text-gray-400">
+      <p>Loading projects...</p>
     </div>
 
-    <!-- Projects Grid -->
-    <div class="container mx-auto px-6 md:px-12 lg:px-20">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          v-for="project in projects"
-          :key="project.id"
-          class="bg-slate-700 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
-        >
-          <!-- Image -->
-          <img
-            :src="project.preview"
-            alt="preview"
-            class="w-full h-48 object-cover"
-          />
+    <!-- Tampilkan pesan error -->
+    <div v-if="error" class="p-4 text-red-400 bg-red-900 rounded-lg text-center">
+      <p>{{ error }}</p>
+    </div>
 
-          <!-- Content -->
-          <div class="p-5">
-            <h3 class="text-xl font-bold text-yellow-400 mb-2">
-              {{ project.title }}
-            </h3>
-            <p class="text-gray-300 text-sm mb-4">
-              {{ project.subtitle }}
-            </p>
+    <div v-if="projects.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Modifikasi dimulai di sini -->
+      <router-link 
+        v-for="project in projects" 
+        :key="project.id" 
+        :to="{ name: 'ProjectDetail', params: { id: project.id } }"
+        class="relative bg-slate-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col cursor-pointer"
+      >
+        <!-- Menambahkan ID Proyek di pojok kanan atas -->
+        <span class="absolute top-2 right-3 text-sm font-mono text-slate-500">#{{ String(project.id).padStart(3, '0') }}</span>
 
-            <!-- Tech tags -->
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span
-                v-for="(tech, i) in project.tech"
-                :key="i"
-                class="px-2 py-1 bg-slate-600 text-gray-200 text-xs rounded"
-              >
-                {{ tech }}
-              </span>
-            </div>
-
-            <!-- Detail Link -->
-            <RouterLink
-              :to="{ name: 'ProjectDetail', params: { id: project.id } }"
-              class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 text-sm"
+        <div class="p-6 flex-grow">
+          <h2 class="text-2xl font-bold mb-2 text-yellow-500">{{ project.name }}</h2>
+          <p class="text-gray-400 mb-4 min-h-[60px]">{{ project.description }}</p>
+        </div>
+        
+        <!-- Bagian untuk menampilkan lencana teknologi -->
+        <div class="p-6 pt-0">
+          <h3 class="text-sm font-semibold text-gray-300 mb-2">Technologies Used:</h3>
+          <div class="flex flex-wrap gap-2">
+            <span 
+              v-for="tech in formatTechnologies(project.technologies)" 
+              :key="tech"
+              class="bg-slate-700 text-yellow-400 text-xs font-medium px-2.5 py-1 rounded-full"
             >
-              View Case Study
-            </RouterLink>
+              {{ tech }}
+            </span>
           </div>
         </div>
-      </div>
+      </router-link>
+      <!-- Akhir modifikasi -->
     </div>
-  </section>
+
+  </div>
 </template>

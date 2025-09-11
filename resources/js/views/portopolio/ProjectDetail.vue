@@ -1,82 +1,66 @@
 <script setup>
-import { defineProps } from 'vue'
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import useProjects from '@/composables/useProjects';
 
-// Props dari route (karena router kita pakai `props: true`)
-const props = defineProps({
-  id: String
-})
+const route = useRoute();
+const { project, loading, error, getProject } = useProjects();
 
-// Dummy data project (harus sama dengan list di Project.vue)
-const projects = [
-  {
-    id: "1",
-    title: "Mobile Banking App",
-    description:
-      "Aplikasi perbankan digital dengan fitur transaksi realtime, top-up, dan pembayaran QRIS. Fokus pada keamanan transaksi dan performa tinggi.",
-    tech: ["Kotlin", "Jetpack Compose", "Ktor", "Hilt"],
-    image: "https://via.placeholder.com/600x350.png?text=Banking+App",
-    demoUrl: null, // project kantor → tidak ada demo
-  },
-  {
-    id: "2",
-    title: "E-Commerce Website",
-    description:
-      "Platform belanja online dengan integrasi QRIS, keranjang belanja, serta fitur admin dashboard untuk manajemen produk.",
-    tech: ["Vue.js", "TailwindCSS", "Laravel"],
-    image: "https://via.placeholder.com/600x350.png?text=E-Commerce",
-    demoUrl: "https://example.com",
-  },
-  {
-    id: "3",
-    title: "Internal TMS",
-    description:
-      "Sistem manajemen terminal untuk perangkat kantor, mendukung konfigurasi, monitoring, dan update firmware secara terpusat.",
-    tech: ["Kotlin", "Compose Multiplatform", "Koin"],
-    image: "https://via.placeholder.com/600x350.png?text=TMS",
-    demoUrl: null,
-  },
-]
+const imageUrl = ref(null);
 
-// Cari project berdasarkan id
-const project = projects.find((p) => p.id === props.id)
+onMounted(() => {
+  const projectId = route.params.id;
+  if (projectId) {
+    getProject(projectId);
+  }
+});
+
+watch(project, (newProject) => {
+  if (newProject && newProject.image) {
+    imageUrl.value = `/storage/${newProject.image}`;
+  }
+}, { immediate: true });
+
 </script>
 
 <template>
   <section class="bg-slate-800 min-h-screen py-12 text-gray-200">
     <div class="container mx-auto px-6 md:px-12 lg:px-20">
-      <div v-if="project" class="flex flex-col md:flex-row gap-12 items-start">
-        <!-- Gambar kiri -->
-        <div class="md:w-1/2">
+      <div v-if="loading" class="text-center text-gray-400">Loading project details...</div>
+      <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
+      <div v-else-if="project" class="flex flex-col gap-8 items-center">
+        <!-- Gambar di atas -->
+        <div class="w-full">
           <img
-            :src="project.image"
+            :src="imageUrl"
             :alt="project.title"
             class="rounded-lg shadow-lg w-full object-cover"
           />
         </div>
 
-        <!-- Konten kanan -->
-        <div class="md:w-1/2">
-          <h1 class="text-3xl font-bold text-yellow-400 mb-4">
+        <!-- Konten di bawah -->
+        <div class="w-full">
+          <h1 class="text-3xl font-bold text-yellow-400 mb-4 text-center">
             {{ project.title }}
           </h1>
-          <p class="text-gray-300 mb-6 leading-relaxed">
+          <p class="text-gray-300 mb-6 leading-relaxed text-center">
             {{ project.description }}
           </p>
 
           <!-- Tech stack -->
-          <h3 class="text-lg font-semibold text-white mb-2">Tech Stack:</h3>
-          <div class="flex flex-wrap gap-2 mb-6">
+          <h3 class="text-lg font-semibold text-white mb-2 text-center">Tech Stack:</h3>
+          <div class="flex flex-wrap justify-center gap-2 mb-6">
             <span
-              v-for="(tech, i) in project.tech"
+              v-for="(tech, i) in project.technologies.split(',')"
               :key="i"
               class="px-3 py-1 bg-slate-600 text-gray-200 text-sm rounded"
             >
-              {{ tech }}
+              {{ tech.trim() }}
             </span>
           </div>
 
           <!-- Demo link -->
-          <div v-if="project.demoUrl">
+          <div v-if="project.demoUrl" class="text-center">
             <a
               :href="project.demoUrl"
               target="_blank"
@@ -85,7 +69,7 @@ const project = projects.find((p) => p.id === props.id)
               View Live Demo
             </a>
           </div>
-          <div v-else>
+          <div v-else class="text-center">
             <span class="text-gray-400 italic">
               🔒 Demo tidak tersedia (project internal/kantor)
             </span>

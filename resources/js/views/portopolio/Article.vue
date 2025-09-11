@@ -1,21 +1,12 @@
 <script setup>
-const articles = [
-  {
-    title: "Membangun UI Modern dengan Vue 3 & Tailwind",
-    description: "Belajar step by step membuat UI responsif dengan Vue 3 + Tailwind CSS.",
-    url: "https://medium.com/@username/vue-tailwind-guide",
-  },
-  {
-    title: "Best Practices dalam Frontend Development",
-    description: "Tips menulis kode frontend yang scalable dan mudah di-maintain.",
-    url: "https://dev.to/username/frontend-best-practices",
-  },
-  {
-    title: "Belajar Integrasi API dengan Axios di Vue",
-    description: "Tutorial dasar integrasi API REST menggunakan Axios di Vue.js.",
-    url: "https://blog.example.com/vue-axios-tutorial",
-  },
-];
+import { onMounted } from 'vue';
+import useArticles from '@/composables/useArticles';
+
+const { articles, loading, error, getArticles } = useArticles();
+
+onMounted(() => {
+  getArticles();
+});
 </script>
 
 <template>
@@ -34,27 +25,34 @@ const articles = [
       </div>
 
       <!-- Articles List -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          v-for="(article, index) in articles"
-          :key="index"
-          class="bg-slate-700 p-6 rounded-lg shadow-lg hover:scale-105 transition"
+      <div v-if="loading" class="text-center text-gray-400">Loading articles...</div>
+      <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
+      <div v-else-if="articles.length === 0" class="text-center text-gray-400">No articles found.</div>
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <router-link
+          v-for="article in articles"
+          :key="article.id"
+          :to="{ name: 'ArticleDetail', params: { slug: article.slug } }"
+          class="bg-slate-700 p-6 rounded-lg shadow-lg hover:scale-105 transition cursor-pointer"
         >
+          <img
+            v-if="article.image"
+            :src="`/storage/${article.image}`"
+            :alt="article.title"
+            class="w-full h-48 object-cover rounded-t-lg mb-4"
+          />
           <h3 class="text-white text-xl font-semibold mb-2">
             {{ article.title }}
           </h3>
           <p class="text-gray-400 text-sm mb-4">
-            {{ article.description }}
+            {{ article.content.substring(0, 150) + '...' }} <!-- Display a snippet of content -->
           </p>
-          <a
-            :href="article.url"
-            target="_blank"
-            rel="noopener noreferrer"
+          <span
             class="text-yellow-400 font-medium hover:underline"
           >
             Baca Selengkapnya →
-          </a>
-        </div>
+          </span>
+        </router-link>
       </div>
     </div>
   </section>

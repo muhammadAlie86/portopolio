@@ -18,8 +18,8 @@
       <p class="mt-2 text-xl text-gray-300">Software Engineer</p>
 
       <!-- Short Description -->
-      <p class="mt-4 text-gray-400 max-w-md mx-auto">
-        Fond of creating web application designs and bringing them to life using code & developing mobile designs.
+      <p class="mt-4 text-gray-400 max-w-2xl mx-auto ">
+        A passionate Software Engineer with expertise in payment systems, POS solutions, hardware integration, and Web & Android development, delivering applications that meet production SLA standards.
       </p>
     </div>
   </section>
