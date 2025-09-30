@@ -3,7 +3,7 @@
 
 
 <template>
-  <section class="bg-slate-800 min-h-screen flex items-center justify-center px-6">
+  <section v-scroll-animation class="bg-slate-800 min-h-screen flex items-center justify-center px-6">
     <div class="text-center">
   
 

@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="bg-slate-800 py-12">
+  <section v-scroll-animation class="bg-slate-800 py-12">
     <div class="container mx-auto px-6">
       <!-- Title -->
       <div class="text-center mb-10">
@@ -28,11 +28,17 @@ onMounted(() => {
       <div v-if="loading" class="text-center text-gray-400">Loading articles...</div>
       <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
       <div v-else-if="articles.length === 0" class="text-center text-gray-400">No articles found.</div>
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <transition-group 
+        v-else 
+        tag="div" 
+        name="list-item"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
         <router-link
-          v-for="article in articles"
+          v-for="(article, index) in articles"
           :key="article.id"
           :to="{ name: 'ArticleDetail', params: { slug: article.slug } }"
+          :style="{ transitionDelay: index * 100 + 'ms' }"
           class="bg-slate-700 p-6 rounded-lg shadow-lg hover:scale-105 transition cursor-pointer"
         >
           <img
@@ -53,7 +59,7 @@ onMounted(() => {
             Baca Selengkapnya →
           </span>
         </router-link>
-      </div>
+      </transition-group>
     </div>
   </section>
 </template>

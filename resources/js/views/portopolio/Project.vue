@@ -16,8 +16,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold text-center mb-8 text-white">My Projects</h1>
+  <div v-scroll-animation class="container mx-auto px-4 py-8">
+    <h2 class="text-center text-yellow-400 font-bold text-lg uppercase tracking-widest">
+        Projects
+      </h2>
+      <div class="flex justify-center items-center mt-2 mb-8">
+        <span class="w-10 h-0.5 bg-white"></span>
+        <span class="w-4 h-0.5 bg-yellow-400 mx-1"></span>
+        <span class="w-10 h-0.5 bg-white"></span>
+      </div>
 
     <!-- Tampilkan pesan loading -->
     <div v-if="loading" class="text-center text-gray-400">
@@ -29,16 +36,20 @@ onMounted(() => {
       <p>{{ error }}</p>
     </div>
 
-    <div v-if="projects.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <transition-group 
+      v-if="projects.length" 
+      tag="div" 
+      name="list-item"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
       <!-- Modifikasi dimulai di sini -->
       <router-link 
-        v-for="project in projects" 
+        v-for="(project, index) in projects" 
         :key="project.id" 
         :to="{ name: 'ProjectDetail', params: { id: project.id } }"
+        :style="{ transitionDelay: index * 100 + 'ms' }"
         class="relative bg-slate-800 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col cursor-pointer"
       >
-        <!-- Menambahkan ID Proyek di pojok kanan atas -->
-        <span class="absolute top-2 right-3 text-sm font-mono text-slate-500">#{{ String(project.id).padStart(3, '0') }}</span>
 
         <div class="p-6 flex-grow">
           <h2 class="text-2xl font-bold mb-2 text-yellow-500">{{ project.name }}</h2>
@@ -60,7 +71,7 @@ onMounted(() => {
         </div>
       </router-link>
       <!-- Akhir modifikasi -->
-    </div>
+    </transition-group>
 
   </div>
 </template>

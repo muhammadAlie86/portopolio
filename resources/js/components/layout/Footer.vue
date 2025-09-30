@@ -1,8 +1,25 @@
 <script setup>
-const socials = [
-  { name: "GitHub", url: "https://github.com/username", icon: "🐙" },
-  { name: "LinkedIn", url: "https://linkedin.com/in/username", icon: "💼" },
-  { name: "Twitter", url: "https://twitter.com/username", icon: "🐦" },
+const socialLinks = [
+  {
+    name: "Email",
+    url: "https://github.com/username",
+    icon: new URL("../../assets/ic_email.png", import.meta.url).href,
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/username",
+    icon: new URL("../../assets/ic_github.png", import.meta.url).href,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/muhammad-ali-mukti",
+    icon: new URL("../../assets/ic_linkedin.png", import.meta.url).href,
+  },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/username",
+    icon: new URL("../../assets/ic_instagram.png", import.meta.url).href,
+  },
 ];
 </script>
 
@@ -12,20 +29,21 @@ const socials = [
       <!-- Socials -->
       <div class="flex justify-center gap-6 mb-4">
         <a
-          v-for="(social, index) in socials"
-          :key="index"
+          v-for="social in socialLinks"
+          :key="social.name"
           :href="social.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-yellow-400 transition"
+          class="hover:opacity-75 transition"
         >
-          <span class="text-xl">{{ social.icon }}</span>
+          <img :src="social.icon" :alt="social.name" class="w-6 h-6" />
         </a>
       </div>
 
       <!-- Copyright -->
       <p>
-        © 2025 <span class="text-yellow-400 font-semibold">Muhammad Alie</span>.
+        © {{ new Date().getFullYear() }}
+        <span class="text-yellow-400 font-semibold">Muhammad Alie</span>.
         All Rights Reserved.
       </p>
     </div>

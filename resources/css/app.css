@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Page Fade Transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Scroll Animation */
+.before-animation {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.enter-animation {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* List Item Transition */
+.list-item-enter-active,
+.list-item-leave-active {
+  transition: all 0.5s ease;
+}
+.list-item-enter-from,
+.list-item-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-item-move {
+  transition: transform 0.5s ease;
+}

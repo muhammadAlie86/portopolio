@@ -1,14 +1,30 @@
 <script setup>
 const contacts = [
-  { name: "Email", url: "mailto:youremail@gmail.com", icon: "✉️" },
-  { name: "LinkedIn", url: "https://linkedin.com/in/username", icon: "💼" },
-  { name: "GitHub", url: "https://github.com/username", icon: "🐙" },
-  { name: "Twitter", url: "https://twitter.com/username", icon: "🐦" },
+  {
+    name: "Email",
+    url: "mailto:aliemuhammad847@gmail.com",
+    icon: new URL("../../assets/ic_email.png", import.meta.url).href,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/muhammad-ali-mukti",
+    icon: new URL("../../assets/ic_linkedin.png", import.meta.url).href,
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/muhammadalie86",
+    icon: new URL("../../assets/ic_github.png", import.meta.url).href,
+  },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/username",
+    icon: new URL("../../assets/ic_instagram.png", import.meta.url).href,
+  },
 ];
 </script>
 
 <template>
-  <section class="bg-slate-900 py-16">
+  <section v-scroll-animation class="bg-slate-900 py-16">
     <div class="container mx-auto px-6 text-center">
       <!-- Title -->
       <h2 class="text-yellow-400 font-bold text-lg uppercase tracking-widest">
@@ -35,7 +51,8 @@ const contacts = [
           rel="noopener noreferrer"
           class="bg-slate-700 text-white px-6 py-3 rounded-lg shadow-md hover:bg-yellow-400 hover:text-black transition flex items-center gap-2"
         >
-          <span>{{ contact.icon }}</span> {{ contact.name }}
+          <img :src="contact.icon" :alt="contact.name" class="w-5 h-5" />
+          {{ contact.name }}
         </a>
       </div>
     </div>

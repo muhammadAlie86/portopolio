@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-  <section class="bg-slate-800 py-10">
+  <section v-scroll-animation class="bg-slate-800 py-10">
     <!-- Judul -->
     <div class="text-center mb-12">
       <h2
@@ -31,18 +31,23 @@
         <!-- Konten kanan -->
         <div class="w-full md:w-2/3">
           <h3 class="text-2xl text-white font-semibold mb-4">I'm Muhammad Alie</h3>
-          <p class="text-gray-300 leading-relaxed mb-4">
-            I am a
-            <span class="text-yellow-400 font-semibold">Software Engineer</span>
-            who loves building modern web applications and crafting clean user
-            interfaces. With experience in frontend technologies like Vue.js,
-            React, and Tailwind CSS, I bring ideas to life with pixel-perfect
-            code.
-          </p>
-          <p class="text-gray-400 leading-relaxed">
-            Outside of coding, I enjoy learning new tech stacks, sharing
-            knowledge, and exploring creative solutions for real-world problems.
-          </p>
+         <p class="text-gray-300 leading-relaxed mb-4">
+    I am a
+    <span class="text-yellow-400 font-semibold">Software Engineer</span>
+      </p>
+      <p class="text-gray-300 leading-relaxed mb-4">
+          As a passionate Software Engineer, I've dedicated my career to building innovative and reliable technology solutions. I'm deeply committed to developing payment systems and POS solutions, driven by the belief that technology should simplify complex transactions and improve business efficiency. This philosophy serves as the foundation for every project I handle, from initial concept to final implementation.
+      </p>
+      <p class="text-gray-300 leading-relaxed mb-4">
+          My expertise covers a broad spectrum, from software integration to hardware integration. I have extensive experience in connecting physical devices like card readers and printers into a digital ecosystem, ensuring every component works in harmony. My focus is not just on functionality, but also on stability and security—crucial elements in the ever-evolving world of digital payments.
+      </p>
+      <p class="text-gray-300 leading-relaxed mb-4">
+          Throughout my career, I've developed a variety of applications on both Web and Android platforms. I've mastered the technologies and methodologies required to build responsive, high-performance applications for both desktop and mobile users. Every line of code I write is aimed at creating a smooth, intuitive user experience without compromising data security.
+      </p>
+      <p class="text-gray-300 leading-relaxed mb-4">
+          My greatest commitment is to quality, which is proven by my ability to create applications that meet stringent production SLA (Service Level Agreement) standards. I don't just build products that work; I ensure they are reliable, scalable, and ready for the most demanding operational environments. In short, I am a dedicated problem-solver focused on delivering solutions that are well-tested and production-ready.
+      </p>
+         
         </div>
       </div>
     </div>
