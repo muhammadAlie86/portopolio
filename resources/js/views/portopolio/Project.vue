@@ -16,7 +16,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-scroll-animation class="container mx-auto px-4 py-8">
+  <div v-scroll-animation class="container mx-auto px-4 py-16">
     <h2 class="text-center text-yellow-400 font-bold text-lg uppercase tracking-widest">
         Projects
       </h2>

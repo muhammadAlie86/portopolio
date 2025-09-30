@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-  <section v-scroll-animation class="bg-slate-800 py-10">
+  <section v-scroll-animation class="bg-slate-800 py-16">
     <!-- Judul -->
     <div class="text-center mb-12">
       <h2

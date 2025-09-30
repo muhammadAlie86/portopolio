@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section v-scroll-animation class="bg-slate-800 py-12">
+  <section v-scroll-animation class="bg-slate-800 py-16">
     <div class="container mx-auto px-6">
       <!-- Title -->
       <div class="text-center mb-10">

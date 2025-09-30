@@ -5,14 +5,8 @@ import AdminLayout from '../layouts/AdminLayout.vue';
 
 // Portfolio Pages
 import Home from '../views/portopolio/Home.vue';
-import Article from '../views/portopolio/Article.vue';
 import ArticleDetail from '../views/portopolio/ArticleDetail.vue';
-import About from '../views/portopolio/About.vue';
-import Contact from '../views/portopolio/Contact.vue';
-import Experience from '../views/portopolio/Experience.vue';
-import Project from '../views/portopolio/Project.vue';
 import ProjectDetail from '../views/portopolio/ProjectDetail.vue';
-import Skils from '../views/portopolio/Skils.vue';
 import PortopolioLayout from '../layouts/PortopolioLayout.vue';
 
 // Admin Pages
@@ -39,14 +33,8 @@ const routes = [
     component: PortopolioLayout,
     children: [
       { path: '', name: 'Home', component: Home },
-      { path: 'about', name: 'About', component: About },
-      { path: 'article', name: 'Article', component: Article },
       { path: 'article/:slug', name: 'ArticleDetail', component: ArticleDetail, props: true },
-      { path: 'contact', name: 'Contact', component: Contact },
-      { path: 'experience', name: 'Experience', component: Experience },
-      { path: 'project', name: 'Project', component: Project },
       { path: 'project/:id', name: 'ProjectDetail', component: ProjectDetail, props: true },
-      { path: 'skils', name: 'Skils', component: Skils },
     ],
   },
   {
